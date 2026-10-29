@@ -1,1 +1,324 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNX Luxury | L'élégance au quotidien</title>
+<style>
+:root {
+  --navy: #101b2d;
+  --gold: #c5a46d;
+  --ivory: #faf8f3;
+  --text: #222;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: var(--text);
+  background: var(--ivory);
+}
+header {
+  background: var(--navy);
+  color: white;
+  padding: 22px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+.logo span { color: var(--gold); }
+header button {
+  background: none;
+  border: 1px solid var(--gold);
+  color: white;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+.hero {
+  background: var(--navy);
+  color: white;
+  text-align: center;
+  padding: 65px 20px 75px;
+}
+.hero p {
+  color: var(--gold);
+  letter-spacing: 3px;
+  font-size: 12px;
+}
+.hero h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(35px, 7vw, 58px);
+  font-weight: normal;
+  margin: 20px 0;
+}
+.hero .subtitle {
+  color: #e0e0e0;
+  letter-spacing: 1px;
+  line-height: 1.7;
+}
+.gold-button {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--navy);
+  padding: 15px 26px;
+  margin-top: 20px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+section { padding: 45px 5%; }
+.section-title {
+  text-align: center;
+  font-family: Georgia, serif;
+  font-size: 32px;
+  font-weight: normal;
+}
+.intro {
+  text-align: center;
+  color: #777;
+  margin-bottom: 30px;
+}
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 25px 0;
+}
+.filters button {
+  background: transparent;
+  border: 1px solid #d5c9b4;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+.filters button.active {
+  background: var(--navy);
+  color: white;
+}
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 22px;
+  max-width: 1100px;
+  margin: auto;
+}
+.product { min-width: 0; }
+.product img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background: #e9e4dc;
+  display: block;
+}
+.product h3 {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: normal;
+  margin: 13px 0 7px;
+}
+.price { font-weight: bold; }
+.product button {
+  width: 100%;
+  padding: 12px 5px;
+  margin-top: 12px;
+  background: var(--navy);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.product button:hover { background: #293b55; }
+.promise {
+  background: #eee8dc;
+  text-align: center;
+  line-height: 2;
+}
+.promise h2 {
+  font-family: Georgia, serif;
+  font-weight: normal;
+}
+footer {
+  background: var(--navy);
+  color: white;
+  text-align: center;
+  padding: 30px 15px;
+  font-size: 13px;
+  line-height: 2;
+}
+footer span { color: var(--gold); }
+#cart {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 10;
+}
+.cart-box {
+  background: var(--ivory);
+  max-width: 420px;
+  margin: 12vh auto;
+  padding: 25px;
+  width: 90%;
+}
+.cart-box button {
+  padding: 12px;
+  cursor: pointer;
+}
+@media (max-width: 400px) {
+  .products { gap: 14px; }
+  .logo { font-size: 21px; }
+}
+</style>
+</head>
+<body>
 
+<header>
+  <div class="logo">UNX <span>LUXURY</span></div>
+  <button onclick="openCart()">Panier (<span id="count">0</span>)</button>
+</header>
+
+<div class="hero">
+  <p>LA NOUVELLE COLLECTION</p>
+  <h1>L'élégance, tout simplement.</h1>
+  <div class="subtitle">
+    Des sacs qui révèlent votre style.<br>
+    Une allure intemporelle, chaque jour.
+  </div>
+  <a href="#collection" class="gold-button">DÉCOUVRIR LA COLLECTION</a>
+</div>
+
+<section id="collection">
+  <h2 class="section-title">Nos pièces sélectionnées</h2>
+  <p class="intro">L'élégance accessible, pensée pour vous.</p>
+
+  <div class="filters">
+    <button class="active" onclick="filterProducts('all',this)">Tout voir</button>
+    <button onclick="filterProducts('structure',this)">Sacs structurés</button>
+    <button onclick="filterProducts('quotidien',this)">Sacs du quotidien</button>
+  </div>
+
+  <div class="products" id="products"></div>
+</section>
+
+<section class="promise">
+  <h2>Le style dans chaque détail.</h2>
+  <p>Une sélection de sacs pour accompagner votre quotidien.</p>
+</section>
+
+<footer>
+  <div class="logo">UNX <span>LUXURY</span></div>
+  <p>L'élégance au quotidien.</p>
+  <p>© 2026 UNX Luxury — Tous droits réservés.</p>
+  <p>Contact · Livraison · Retours</p>
+</footer>
+
+<div id="cart" onclick="closeCart(event)">
+  <div class="cart-box">
+    <button onclick="closeCart()" style="float:right">Fermer ✕</button>
+    <h2>Votre panier</h2>
+    <div id="cart-items">Votre panier est vide.</div>
+    <h3 id="total">Total : 0,00 €</h3>
+    <p style="font-size:12px;color:#777">
+      Démonstration : le paiement en ligne n'est pas encore activé.
+    </p>
+  </div>
+</div>
+
+<script>
+const products = [
+  {
+    name:"Le Bordeaux Croco", price:49.90, category:"structure",
+    image:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    name:"Le Rouge Signature", price:44.90, category:"structure",
+    image:"https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    name:"Le Taupe Élégance", price:44.90, category:"structure",
+    image:"https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    name:"Le Cognac Classique", price:54.90, category:"quotidien",
+    image:"https://images.unsplash.com/photo-1591561954557-26941169b49e?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    name:"Le Bleu Essentiel", price:49.90, category:"quotidien",
+    image:"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=600&q=80"
+  }
+];
+
+let cart = [];
+
+function renderProducts(category="all") {
+  const list = document.getElementById("products");
+  list.innerHTML = "";
+  products.filter(p => category==="all" || p.category===category)
+  .forEach(p => {
+    const card = document.createElement("article");
+    card.className = "product";
+    const img = document.createElement("img");
+    img.src = p.image;
+    img.alt = p.name;
+    img.loading = "lazy";
+    img.onerror = () => { img.style.display="none"; };
+    const title = document.createElement("h3");
+    title.textContent = p.name;
+    const price = document.createElement("div");
+    price.className = "price";
+    price.textContent = p.price.toLocaleString("fr-FR",{style:"currency",currency:"EUR"});
+    const btn = document.createElement("button");
+    btn.textContent = "Ajouter au panier";
+    btn.onclick = () => addToCart(p.name);
+    card.append(img,title,price,btn);
+    list.appendChild(card);
+  });
+}
+
+function filterProducts(category,button) {
+  document.querySelectorAll(".filters button").forEach(b=>b.classList.remove("active"));
+  button.classList.add("active");
+  renderProducts(category);
+}
+
+function addToCart(name) {
+  cart.push(products.find(p=>p.name===name));
+  document.getElementById("count").textContent=cart.length;
+  updateCart();
+}
+
+function updateCart() {
+  const items=document.getElementById("cart-items");
+  if (!cart.length) {
+    items.textContent="Votre panier est vide.";
+  } else {
+    items.innerHTML="";
+    cart.forEach((p,i)=>{
+      const row=document.createElement("p");
+      row.textContent=p.name+" — "+p.price.toLocaleString("fr-FR",{style:"currency",currency:"EUR"});
+      items.appendChild(row);
+    });
+  }
+  const total=cart.reduce((sum,p)=>sum+p.price,0);
+  document.getElementById("total").textContent=
+    "Total : "+total.toLocaleString("fr-FR",{style:"currency",currency:"EUR"});
+}
+
+function openCart() {
+  document.getElementById("cart").style.display="block";
+}
+function closeCart(event) {
+  if (!event || event.target.id==="cart" || event.target.tagName==="BUTTON") {
+    document.getElementById("cart").style.display="none";
+  }
+}
+
+renderProducts();
+</script>
+</body>
+</html>
